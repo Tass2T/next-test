@@ -1,12 +1,26 @@
 "use client";
 import { CatContext } from "@/context/catsProvider";
-import { useContext, useEffect } from "react";
+import { useContext, useEffect, useState } from "react";
 
 export default function Home() {
-  const { catsList, getCats } = useContext(CatContext);
+  const { getTwoRandomCats, catsList, getCats } = useContext(CatContext);
+  const [twoCats, setTwoCats] = useState([]);
+
+  const getTwoCats = async () => {
+    const result = await getTwoRandomCats();
+
+    setTwoCats(result);
+  };
+
   useEffect(() => {
-    if (!catsList.length) getCats();
+    getCats();
   }, []);
+
+  useEffect(() => {
+    if (catsList.length) {
+      getTwoCats();
+    }
+  }, [catsList]);
 
   return (
     <span className="flex w-full h-full">
