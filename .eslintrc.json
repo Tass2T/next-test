@@ -1,3 +1,22 @@
 {
-  "extends": "next/core-web-vitals"
+  "extends": [
+    "next/core-web-vitals",
+    "plugin:prettier/recommended",
+    "plugin:tailwindcss/recommended"
+  ],
+  "rules": {
+    "react/jsx-curly-brace-presence": ["error", "never"],
+    "react/self-closing-comp": "error",
+    "arrow-body-style": "error",
+
+    "prettier/prettier": [
+      "error",
+      {
+        "printWidth": 160,
+        "singleQuote": true,
+        "arrowParens": "avoid",
+        "semi": true
+      }
+    ]
+  }
 }
