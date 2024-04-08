@@ -1,7 +1,7 @@
 export interface Cat {
-  url: String;
-  id: String;
-  vote: Number;
+  url: string;
+  id: string;
+  vote: number;
 }
 
 export interface CatContextType {
@@ -9,4 +9,5 @@ export interface CatContextType {
   getCats: Function;
   loading: Boolean;
   getTwoRandomCats: Function;
+  addOneVoteToACat: Function;
 }

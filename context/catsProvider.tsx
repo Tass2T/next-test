@@ -1,5 +1,5 @@
 import { Cat, CatContextType } from "@/interface/cats";
-import { ReactNode, createContext, useEffect, useState } from "react";
+import { ReactNode, Suspense, createContext, useEffect, useState } from "react";
 
 const CatContext = createContext<CatContextType>({
   catsList: [],
@@ -34,7 +34,7 @@ const CatsProvider = ({ children }: { children: ReactNode }) => {
   const getTwoRandomCats = async () => {
     const randomCat = catsList[Math.floor(Math.random() * catsList.length)];
     let randomCatTwo = catsList[Math.floor(Math.random() * catsList.length)];
-    console.log("yooo ", randomCat, randomCatTwo);
+    // console.log("yooo ", randomCat, randomCatTwo);
 
     while (randomCatTwo.id === randomCat.id) {
       randomCatTwo = catsList[Math.floor(Math.random() * catsList.length)];
@@ -43,11 +43,21 @@ const CatsProvider = ({ children }: { children: ReactNode }) => {
     return [randomCat, randomCatTwo];
   };
 
+  const addOneVoteToACat = (id: string) => {
+    const catsListDuplicate = catsList;
+    const chosenCat = catsListDuplicate.find((cat) => cat.id === id);
+
+    if (chosenCat) {
+      chosenCat.vote += 1;
+    }
+    setCatsList(catsListDuplicate);
+  };
+
   return (
     <CatContext.Provider
-      value={{ catsList, getCats, loading, getTwoRandomCats }}
+      value={{ catsList, getCats, loading, getTwoRandomCats, addOneVoteToACat }}
     >
-      {children}
+      <Suspense>{children}</Suspense>
     </CatContext.Provider>
   );
 };
