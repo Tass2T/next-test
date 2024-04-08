@@ -26,8 +26,6 @@ export default function Home() {
   }, [catsList]);
 
   const vote = (id: string): void => {
-    console.log(id);
-
     addOneVoteToACat(id);
     getTwoCats();
   };
